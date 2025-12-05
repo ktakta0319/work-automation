@@ -9,7 +9,7 @@ function cleanupDriveFiles() {
   // ===== 設定値 =====
   const TARGET_FOLDER_ID = 'PUT_FOLDER_ID_HERE'; // 削除対象のフォルダID
   const EXCLUDED_FILE_IDS = ['KEEP_THIS_FILE_ID']; // 削除対象外のファイルID
-  const RETENTION_DAYS = 30; // この日数より前に作成されたファイルを削除対象とする
+  const RETENTION_DAYS = 30; // この日数より前に最終更新されたファイルを削除対象とする
 
   // 削除対象とするファイル種別（true にしたものだけを削除）
   const DELETE_SLIDES = true;   // Google スライド
