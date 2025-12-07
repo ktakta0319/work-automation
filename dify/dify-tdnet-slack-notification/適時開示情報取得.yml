@@ -1,0 +1,790 @@
+app:
+  description: 1時間おきにTDnetのページを取得し、指定した証券コードの会社が直近1時間のうちに公開した適時開示情報を要約してSlackに通知する
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  mode: workflow
+  name: 適時開示情報取得
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/slack:0.0.4@8eccd2e5360bd287d887738750ae420d57d0c26d1e1a1ced4f59963005f1c163
+    version: null
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/groq:0.0.12@38f75b2f4a3687af7b0947693c7903f5c7d8756f217ea492b8b81de6f16601f6
+    version: null
+kind: app
+version: 0.5.0
+workflow:
+  conversation_variables: []
+  environment_variables:
+  - description: ''
+    id: ff113cbc-8a54-4099-a969-92548e141a22
+    name: slack_incoming_webhook_url
+    selector:
+    - env
+    - slack_incoming_webhook_url
+    value: ''
+    value_type: secret
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - local_file
+      - remote_url
+      enabled: false
+      fileUploadConfig:
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        image_file_size_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: http-request
+        targetType: code
+      id: 1765088586518-source-1765088795006-target
+      selected: false
+      source: '1765088586518'
+      sourceHandle: source
+      target: '1765088795006'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: code
+        targetType: iteration
+      id: 1765088795006-source-1765089424395-target
+      selected: false
+      source: '1765088795006'
+      sourceHandle: source
+      target: '1765089424395'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: true
+        isInLoop: false
+        iteration_id: '1765089424395'
+        sourceType: iteration-start
+        targetType: template-transform
+      id: 1765089424395start-source-1765089485292-target
+      selected: false
+      source: 1765089424395start
+      sourceHandle: source
+      target: '1765089485292'
+      targetHandle: target
+      type: custom
+      zIndex: 1002
+    - data:
+        isInIteration: true
+        isInLoop: false
+        iteration_id: '1765089424395'
+        sourceType: template-transform
+        targetType: http-request
+      id: 1765089485292-source-1765089542159-target
+      selected: false
+      source: '1765089485292'
+      sourceHandle: source
+      target: '1765089542159'
+      targetHandle: target
+      type: custom
+      zIndex: 1002
+    - data:
+        isInIteration: true
+        isInLoop: false
+        iteration_id: '1765089424395'
+        sourceType: http-request
+        targetType: document-extractor
+      id: 1765089542159-source-1765090075285-target
+      selected: false
+      source: '1765089542159'
+      sourceHandle: source
+      target: '1765090075285'
+      targetHandle: target
+      type: custom
+      zIndex: 1002
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: iteration
+        targetType: end
+      id: 1765089424395-source-1765090102186-target
+      selected: false
+      source: '1765089424395'
+      sourceHandle: source
+      target: '1765090102186'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: code
+        targetType: http-request
+      id: 1765093111661-source-1765088586518-target
+      selected: false
+      source: '1765093111661'
+      sourceHandle: source
+      target: '1765088586518'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: true
+        isInLoop: false
+        iteration_id: '1765089424395'
+        sourceType: llm
+        targetType: code
+      id: 1765095690376-source-1765095821416-target
+      selected: false
+      source: '1765095690376'
+      sourceHandle: source
+      target: '1765095821416'
+      targetHandle: target
+      type: custom
+      zIndex: 1002
+    - data:
+        isInIteration: true
+        isInLoop: false
+        iteration_id: '1765089424395'
+        sourceType: code
+        targetType: tool
+      id: 1765095821416-source-1765091455408-target
+      selected: false
+      source: '1765095821416'
+      sourceHandle: source
+      target: '1765091455408'
+      targetHandle: target
+      type: custom
+      zIndex: 1002
+    - data:
+        isInIteration: true
+        isInLoop: false
+        iteration_id: '1765089424395'
+        sourceType: document-extractor
+        targetType: template-transform
+      id: 1765090075285-source-1765096844071-target
+      selected: false
+      source: '1765090075285'
+      sourceHandle: source
+      target: '1765096844071'
+      targetHandle: target
+      type: custom
+      zIndex: 1002
+    - data:
+        isInIteration: true
+        isInLoop: false
+        iteration_id: '1765089424395'
+        sourceType: template-transform
+        targetType: llm
+      id: 1765096844071-source-1765095690376-target
+      selected: false
+      source: '1765096844071'
+      sourceHandle: source
+      target: '1765095690376'
+      targetHandle: target
+      type: custom
+      zIndex: 1002
+    - data:
+        isInLoop: false
+        sourceType: trigger-schedule
+        targetType: code
+      id: 1765111744293-source-1765093111661-target
+      source: '1765111744293'
+      sourceHandle: source
+      target: '1765093111661'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        config:
+          frequency: daily
+          mode: visual
+          timezone: UTC
+          visual_config:
+            monthly_days:
+            - 1
+            on_minute: 0
+            time: 12:00 AM
+            weekdays:
+            - sun
+        cron_expression: 5 8-19 * * 1-5
+        mode: cron
+        selected: false
+        timezone: Asia/Tokyo
+        title: スケジュールトリガー
+        type: trigger-schedule
+      height: 130
+      id: '1765111744293'
+      position:
+        x: 683.627596735569
+        y: 282
+      positionAbsolute:
+        x: 683.627596735569
+        y: 282
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        authorization:
+          config: null
+          type: no-auth
+        body:
+          data: []
+          type: none
+        headers: ''
+        method: get
+        params: ''
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 100
+        selected: false
+        ssl_verify: true
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: TDnetページ取得
+        type: http-request
+        url: '{{#1765093111661.result#}}'
+        variables: []
+      height: 124
+      id: '1765088586518'
+      position:
+        x: 683.627596735569
+        y: 551.5775169077053
+      positionAbsolute:
+        x: 683.627596735569
+        y: 551.5775169077053
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        code: "import re\nfrom urllib.parse import urljoin\nfrom typing import List,\
+          \ Dict\nfrom datetime import datetime, timedelta\n\n\ndef main(html: str)\
+          \ -> dict:\n    \"\"\"\n    直前1時間の投稿のみ取得\n    （例: 19:05 に実行 → 18:01〜19:00\
+          \ のみ）\n    \"\"\"\n\n    base_url = \"https://www.release.tdnet.info/inbs/\"\
+          \n    results: List[Dict[str, str]] = []\n\n    # 監視したい証券コード\n    target_codes\
+          \ = [\n        \"22690\", # 【テスト用】明治HD\n        \"63900\", # 【テスト用】加藤製造所\n\
+          \        \"245A0\", # 【テスト用】INGS\n    ]\n\n    now = datetime.now()\n\n\
+          \    # 本番用（「直前1時間」を動的に判定）\n    end_time = now.replace(minute=0, second=0,\
+          \ microsecond=0)\n\n    # テスト用（手動で設定）\n    # end_time = now.replace(hour=17,\
+          \ minute=0, second=0, microsecond=0)\n\n    # end_timeの1時間前\n    start_time\
+          \ = end_time - timedelta(hours=1)\n\n    # <tr> ごとに抽出\n    tr_pattern =\
+          \ re.compile(r\"<tr>\\s*(.*?)\\s*</tr>\", re.DOTALL)\n\n    for tr_match\
+          \ in tr_pattern.finditer(html):\n        tr_html = tr_match.group(1)\n\n\
+          \        # 証券コード抽出\n        code_match = re.search(\n            r'class=\"\
+          [^\"]*kjCode[^\"]*\"[^>]*>(.*?)</td>',\n            tr_html\n        )\n\
+          \        if not code_match:\n            continue\n\n        code = code_match.group(1).strip()\n\
+          \n        # 対象コード以外はスキップ\n        if code not in target_codes:\n       \
+          \     continue\n\n        # 時刻取得（例: \"17:00\"）\n        time_match = re.search(\n\
+          \            r'class=\"[^\"]*kjTime[^\"]*\"[^>]*>(.*?)</td>',\n        \
+          \    tr_html\n        )\n        if not time_match:\n            continue\n\
+          \n        time_str = time_match.group(1).strip()\n\n        try:\n     \
+          \       # \"HH:MM\" → time オブジェクト\n            t = datetime.strptime(time_str,\
+          \ \"%H:%M\").time()\n            # 今日の日付 + 時刻（秒・マイクロ秒は 0）\n            row_time\
+          \ = datetime.combine(now.date(), t)\n        except ValueError:\n      \
+          \      # パースできない時刻は無視\n            continue\n\n        # 直前1時間のみ（start_time\
+          \ は含まず、end_time は含む）\n        if not (start_time < row_time <= end_time):\n\
+          \            continue\n\n        # PDF とタイトル\n        title_match = re.search(\n\
+          \            r'class=\"[^\"]*kjTitle[^\"]*\"[^>]*>.*?<a[^>]*href=\"([^\"\
+          ]+)\"[^>]*>(.*?)</a>',\n            tr_html,\n            re.DOTALL\n  \
+          \      )\n        if not title_match:\n            continue\n\n        pdf_path\
+          \ = title_match.group(1).strip()\n        # 改行や余計なスペースをまとめる\n        title\
+          \ = re.sub(r\"\\s+\", \" \", title_match.group(2)).strip()\n        pdf_url\
+          \ = urljoin(base_url, pdf_path)\n\n        # 会社名\n        name_match = re.search(\n\
+          \            r'class=\"[^\"]*kjName[^\"]*\"[^>]*>(.*?)</td>',\n        \
+          \    tr_html\n        )\n        company = name_match.group(1).strip() if\
+          \ name_match else \"\"\n\n        results.append(\n            {\n     \
+          \           \"time\": time_str,\n                \"code\": code,\n     \
+          \           \"company\": company,\n                \"title\": title,\n \
+          \               \"pdf_path\": pdf_path,\n                \"pdf_url\": pdf_url,\n\
+          \            }\n        )\n\n    return {\"results\": results}\n"
+        code_language: python3
+        outputs:
+          results:
+            children: null
+            type: array[object]
+        selected: false
+        title: HTMLパース
+        type: code
+        variables:
+        - value_selector:
+          - '1765088586518'
+          - body
+          value_type: string
+          variable: html
+      height: 52
+      id: '1765088795006'
+      position:
+        x: 683.627596735569
+        y: 724.3692054898906
+      positionAbsolute:
+        x: 683.627596735569
+        y: 724.3692054898906
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        error_handle_mode: terminated
+        flatten_output: true
+        height: 624
+        is_parallel: false
+        iterator_input_type: array[object]
+        iterator_selector:
+        - '1765088795006'
+        - results
+        output_selector:
+        - '1765095821416'
+        - result
+        output_type: array[string]
+        parallel_nums: 10
+        selected: false
+        start_node_id: 1765089424395start
+        title: イテレーション
+        type: iteration
+        width: 796
+      height: 624
+      id: '1765089424395'
+      position:
+        x: 1012.4315965521844
+        y: 303
+      positionAbsolute:
+        x: 1012.4315965521844
+        y: 303
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 796
+      zIndex: 1
+    - data:
+        desc: ''
+        isInIteration: true
+        selected: false
+        title: ''
+        type: iteration-start
+      draggable: false
+      height: 48
+      id: 1765089424395start
+      parentId: '1765089424395'
+      position:
+        x: 24
+        y: 68
+      positionAbsolute:
+        x: 1036.4315965521844
+        y: 371
+      selectable: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom-iteration-start
+      width: 44
+      zIndex: 1002
+    - data:
+        isInIteration: true
+        isInLoop: false
+        iteration_id: '1765089424395'
+        selected: false
+        template: '{{ item.pdf_url }}'
+        title: PDF URL抽出
+        type: template-transform
+        variables:
+        - value_selector:
+          - '1765089424395'
+          - item
+          value_type: object
+          variable: item
+      height: 52
+      id: '1765089485292'
+      parentId: '1765089424395'
+      position:
+        x: 134.63758609433035
+        y: 66.25889887340782
+      positionAbsolute:
+        x: 1147.0691826465147
+        y: 369.2588988734078
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 1002
+    - data:
+        authorization:
+          config: null
+          type: no-auth
+        body:
+          data: []
+          type: none
+        headers: ''
+        isInIteration: true
+        isInLoop: false
+        iteration_id: '1765089424395'
+        method: get
+        params: ''
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 100
+        selected: false
+        ssl_verify: true
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: PDF取得
+        type: http-request
+        url: '{{#1765089485292.output#}}'
+        variables: []
+      height: 124
+      id: '1765089542159'
+      parentId: '1765089424395'
+      position:
+        x: 132.80218556867567
+        y: 174.51779774681552
+      positionAbsolute:
+        x: 1145.23378212086
+        y: 477.5177977468155
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 1002
+    - data:
+        isInIteration: true
+        isInLoop: false
+        is_array_file: true
+        iteration_id: '1765089424395'
+        selected: false
+        title: テキスト抽出
+        type: document-extractor
+        variable_selector:
+        - '1765089542159'
+        - files
+      height: 104
+      id: '1765090075285'
+      parentId: '1765089424395'
+      position:
+        x: 135.7058049893078
+        y: 363.2924131867336
+      positionAbsolute:
+        x: 1148.1374015414922
+        y: 666.2924131867336
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 1002
+    - data:
+        outputs:
+        - value_selector:
+          - '1765089424395'
+          - output
+          value_type: array[string]
+          variable: output
+        selected: false
+        title: 出力
+        type: end
+      height: 88
+      id: '1765090102186'
+      position:
+        x: 1887.7357858230043
+        y: 303
+      positionAbsolute:
+        x: 1887.7357858230043
+        y: 303
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        isInIteration: true
+        isInLoop: false
+        is_team_authorization: true
+        iteration_id: '1765089424395'
+        paramSchemas:
+        - auto_generate: null
+          default: null
+          form: form
+          human_description:
+            en_US: Slack Incoming Webhook url
+            ja_JP: Slack Incoming Webhook url
+            pt_BR: Slack Incoming Webhook url
+            zh_Hans: Slack 入站 Webhook 的 url
+          label:
+            en_US: Slack Incoming Webhook url
+            ja_JP: Slack Incoming Webhook url
+            pt_BR: Slack Incoming Webhook url
+            zh_Hans: Slack 入站 Webhook 的 url
+          llm_description: ''
+          max: null
+          min: null
+          name: webhook_url
+          options: []
+          placeholder: null
+          precision: null
+          required: true
+          scope: null
+          template: null
+          type: string
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: Content to sent to the channel or person.
+            ja_JP: Content to sent to the channel or person.
+            pt_BR: Content to sent to the channel or person.
+            zh_Hans: 消息内容文本
+          label:
+            en_US: content
+            ja_JP: content
+            pt_BR: content
+            zh_Hans: 消息内容
+          llm_description: Content of the message
+          max: null
+          min: null
+          name: content
+          options: []
+          placeholder: null
+          precision: null
+          required: true
+          scope: null
+          template: null
+          type: string
+        params:
+          content: ''
+          webhook_url: ''
+        plugin_id: langgenius/slack
+        plugin_unique_identifier: langgenius/slack:0.0.4@8eccd2e5360bd287d887738750ae420d57d0c26d1e1a1ced4f59963005f1c163
+        provider_icon: https://cloud.dify.ai/console/api/workspaces/current/plugin/icon?tenant_id=5c64c3aa-cf23-4cdc-a64c-6f50f813ac26&filename=96f032a223a6e7db0335b001fe32b4c790bc2c0135adf67acf831b3b588d18bc.svg
+        provider_id: langgenius/slack/slack
+        provider_name: langgenius/slack/slack
+        provider_type: builtin
+        selected: false
+        title: Incoming Webhook to send message
+        tool_configurations:
+          webhook_url:
+            type: mixed
+            value: '{{#env.slack_incoming_webhook_url#}}'
+        tool_description: Sending a message on Slack via the Incoming Webhook
+        tool_label: Incoming Webhook to send message
+        tool_name: slack_webhook
+        tool_node_version: '2'
+        tool_parameters:
+          content:
+            type: mixed
+            value: '{{#1765095821416.result#}}'
+        type: tool
+      height: 88
+      id: '1765091455408'
+      parentId: '1765089424395'
+      position:
+        x: 469.18770788614574
+        y: 311.4373000413892
+      positionAbsolute:
+        x: 1481.6193044383301
+        y: 614.4373000413892
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 1002
+    - data:
+        code: "from datetime import datetime\n\ndef main():\n    # 実行日を yyyymmdd 形式に変換\n\
+          \    today_str = datetime.now().strftime(\"%Y%m%d\")\n\n    # URL生成\n  \
+          \  url = f\"https://www.release.tdnet.info/inbs/I_list_001_{today_str}.html\"\
+          \n\n    return {\n        \"result\": url\n        # \"result\": \"https://www.release.tdnet.info/inbs/I_list_001_20251205.html\"\
+          \ # テスト用\n    }\n"
+        code_language: python3
+        outputs:
+          result:
+            children: null
+            type: string
+        selected: false
+        title: TDnet URL生成
+        type: code
+        variables: []
+      height: 52
+      id: '1765093111661'
+      position:
+        x: 683.627596735569
+        y: 456.0873732175503
+      positionAbsolute:
+        x: 683.627596735569
+        y: 456.0873732175503
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - '1765096844071'
+          - output
+        isInIteration: true
+        isInLoop: false
+        iteration_id: '1765089424395'
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: llama-3.1-8b-instant
+          provider: langgenius/groq/groq
+        prompt_template:
+        - id: 464e4c49-b4ec-4484-8f62-d09cceb44fd9
+          role: system
+          text: PDFの内容を300文字程度に要約してください。
+        - id: 9b303116-ace3-46ad-9afa-58155e481096
+          role: user
+          text: '## PDFの内容
+
+            {{#context#}}'
+        selected: false
+        title: PDF要約
+        type: llm
+        vision:
+          enabled: false
+      height: 88
+      id: '1765095690376'
+      parentId: '1765089424395'
+      position:
+        x: 473.8125914702009
+        y: 65
+      positionAbsolute:
+        x: 1486.2441880223853
+        y: 368
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 1002
+    - data:
+        code: "def main(item, summary):\n\n    company = item.get(\"company\", \"\"\
+          )\n    code = item.get(\"code\", \"\")\n    url = item.get(\"pdf_url\")\n\
+          \    title = item.get(\"title\", \"\")\n\n    # Slack通知文面\n    text = f\"\
+          *{company}（{code}）*\\n*{title}*\\n{url}\\n\\n{summary}\"\n\n    return {\"\
+          result\": text}"
+        code_language: python3
+        isInIteration: true
+        isInLoop: false
+        iteration_id: '1765089424395'
+        outputs:
+          result:
+            children: null
+            type: string
+        selected: false
+        title: Slack通知文面作成
+        type: code
+        variables:
+        - value_selector:
+          - '1765089424395'
+          - item
+          value_type: object
+          variable: item
+        - value_selector:
+          - '1765095690376'
+          - text
+          value_type: string
+          variable: summary
+      height: 52
+      id: '1765095821416'
+      parentId: '1765089424395'
+      position:
+        x: 470.8125914702007
+        y: 203
+      positionAbsolute:
+        x: 1483.244188022385
+        y: 506
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 1002
+    - data:
+        isInIteration: true
+        isInLoop: false
+        iteration_id: '1765089424395'
+        selected: false
+        template: '{{ text[0] }}'
+        title: テキスト文字列化
+        type: template-transform
+        variables:
+        - value_selector:
+          - '1765090075285'
+          - text
+          value_type: array[string]
+          variable: text
+      height: 52
+      id: '1765096844071'
+      parentId: '1765089424395'
+      position:
+        x: 133.75420896225637
+        y: 526.9559190864048
+      positionAbsolute:
+        x: 1146.1858055144407
+        y: 829.9559190864048
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 1002
+    viewport:
+      x: -81.30485104261857
+      y: -44.5826406381467
+      zoom: 0.870550563296124
+  rag_pipeline_variables: []
